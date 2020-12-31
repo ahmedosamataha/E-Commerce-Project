@@ -26,6 +26,10 @@ class Cart {
         return this.#cart.save();
     }
 
+    addProduct(product, properties) {
+        return this.#cart.addProduct(product.getProductData(), properties);
+    }                       
+              
     getProducts(searchProp) {
         return this.#cart
                     .getProducts(searchProp)
