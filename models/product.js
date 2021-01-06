@@ -16,13 +16,13 @@ class Product {
     getCartItem() {return CartItem.wrapUp(this.#product.cartItem);}
 
     getId() {return this.#product.id;}
-    getTitle() {return this.#product.title;}
+    getName() {return this.#product.name;}
     getImageUrl() {return this.#product.imageUrl;}
     getPrice() {return this.#product.price;}
     getDescription() {return this.#product.description;}
     getQuantity() {return this.#product.quantity;}
 
-    setTitle(title) {this.#product.title = title;}
+    setName(name) {this.#product.title = name;}
     setImageUrl(imageUrl) {this.#product.imageUrl = imageUrl;}
     setPrice(price) {this.#product.price = price;}
     setDescription(description) {this.#product.description = description;}
@@ -37,7 +37,11 @@ class Product {
     }
 
     static findAll(searchProp) {
-        return ProductTable.findAll(searchProp);
+        return ProductTable
+                .findAll(searchProp)
+                .then(products => {
+                    return Product.wrapUp(products);
+                });
     }
 
     static wrapUp(product) {
