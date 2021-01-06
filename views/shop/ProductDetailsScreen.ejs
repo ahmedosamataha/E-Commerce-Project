@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html>
+    <head>
+        <title>Capitalstore</title>
+    </head>
+    <body>
+
+    <header>
+        <%- include('../includes/navigation.ejs') %>
+    </header>
+
+
+    <main>
+        <div class="row m-0" style="padding:0.5% 0% 3% 0%">
+            <!-- <div class="col-12 m-0" ><a>&#8592; Back to results</a></div> -->
+            <div class="col-lg-5 col-md-5 col-sm-12 col-12 mb-2"><img src="<%= product.getImageUrl()%>"img-fluid w-100"></img></div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-12 mb-3">
+            <div> <span style="font-size:140%; font-weight:bold"><%= product.getName()%></span></div>
+       
+            <div style="font-weight:bold" >Price: <span style="font-size:130%; color:red">$<%= product.getPrice()%></span></div>
+                <div style="font-weight:bold">Description: <%= product.getDescription() %></div>
+                <div style="font-weight:bold"> 2 Customer reviews </div>
+
+            </div>
+        
+            <div class="col-lg-3 col-md-4 col-sm-12 col-12">
+                <form action="/add-to-cart" method="POST">
+                    <div style="border:1px solid rgb(0,0,0,0.2); border-radius:10px; padding:6% 4%; font-weight:bold">
+                        <div class="mb-2" >Price: <%= product.getPrice()%> </div>
+                        <div class="mb-2" >Quantity in stock: <%= product.getQuantity() %></div>
+                        <div class="mb-3">Quantity:
+                        <select class="custom-select w-25 ml-2" name="quantity">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                        </select>
+                    </div>
+                        <input type="hidden" name="productId" value="<%= product.getId() %>"">
+                        <% if (userType === 'consumer') { %>
+                            <button class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.4); font-weight:bold">Add to Cart</button>
+                        <% } %>
+                    </div>
+                </form>
+            </div>
+                
+        </div>
+            </main>
+             
+
+
+
+
+
+
+
+
+
+<footer class="fixed-bottom">
+    <nav class="navbar text-light position-absolute justify-content-center w-100" style="background-color: #000913; bottom: 0">
+      <span class ="mt-1">All rights reserved.</span>
+    </nav>
+</footer>
+</body>
+</html>
+
+
