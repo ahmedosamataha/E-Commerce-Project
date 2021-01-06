@@ -54,9 +54,9 @@ class Consumer {
                     return new Consumer(cons);
                 return cons;
             });
-        if (cons)
-            return new Consumer(cons);
-        return cons;
+        if (consumer)
+            return new Consumer(consumer);
+        return consumer;
     }
 
     static create(consumer) {
@@ -80,7 +80,11 @@ class Consumer {
     }
 
     static findAll(searchProp) {
-        return ConsumerTable.findAll(searchProp);
+        return ConsumerTable
+                .findAll(searchProp)
+                .then(consumers => {
+                    return Consumer.wrapUp(consumers);
+                });
     }
 }
 
