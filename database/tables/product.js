@@ -21,8 +21,16 @@ const ProductTabe = sequelize.define('product', {
         type: Sequelize.DOUBLE,
         allowNull: false
     },
+    imageUrl: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     quantity: {
         type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    description: {
+        type: Sequelize.STRING,
         allowNull: false
     }
 });
