@@ -27,7 +27,13 @@ class Cart {
     }
 
     addProduct(product, properties) {
-        return this.#cart.addProduct(product.getProductData(), properties);
+        return this.#cart
+                        .addProduct(product.getProductData(), properties)
+                        .catch(err => console.log('addProduct', err));
+    }
+
+    setProducts(val) {  //v2
+        return this.#cart.setProducts(val);
     }                       
               
     getProducts(searchProp) {
