@@ -7,9 +7,11 @@ exports.getHome = (req, res, next) => {
         .then(products => {
             res.render('shop/HomeScreen', {
                 products: products,
-                userType: req.userType
+                userType: req.userType,
+                user: req.user // add user
             });
-        });
+        })
+        .catch(err => console.log('getHome', err)); // catch
 };
 
 exports.getProduct = (req, res, next) => {
@@ -17,11 +19,17 @@ exports.getProduct = (req, res, next) => {
     Product
         .findByPk(id)
         .then(product => {
-                res.render('shop/ProductDetailsScreen', {
-                    product: product,
-                    userType: req.userType
-                });
+            if (req.userType === 'consumer') {  //v4
+                console.log('adding lastVidite')
+                req.user.setLastVisited(product.getTag());
+                req.user.save();
+            }
+            res.render('shop/ProductDetailsScreen', {
+                product: product,
+                userType: req.userType,
+                user: req.user // add user
             });
+        });
 };
 
 exports.postAddToCart = (req, res, next) => {
@@ -54,6 +62,11 @@ exports.postAddToCart = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
+    if (req.userType !== 'consumer') { // v3
+        req.isAllowed = false;
+        return next();
+    }
+    let check = 0;
     req.user
         .getCart()
         .then(cart => {
@@ -65,8 +78,10 @@ exports.getCart = (req, res, next) => {
                 check += product.getPrice() * product.getCartItem().getQuantity();
             res.render('shop/CartScreen', {
                 products: products,
+                check: Product.getCheck(products).toFixed(2), // v2
                 check: check.toFixed(2),
-                userType: req.userType
+                userType: req.userType,
+                user: req.user // add user
             })
         })
 };
