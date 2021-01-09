@@ -21,7 +21,10 @@ const ConsumerTable = sequelize.define('consumer', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    email: Sequelize.STRING,
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     gender: Sequelize.BOOLEAN,
     lastVisited: Sequelize.STRING //v4
 });
