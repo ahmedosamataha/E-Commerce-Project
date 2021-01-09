@@ -14,6 +14,40 @@ exports.getHome = (req, res, next) => {
         .catch(err => console.log('getHome', err)); // catch
 };
 
+exports.getRecommendations = (req, res, next) => { //v3
+    if (req.userType !== 'consumer') {
+        req.isAllowed = false;
+        return next();
+    }
+    req.user
+        .getOrders({include: ['products']})
+        .then(orders => {
+            let ordered = new Object();
+            for (let order of orders) 
+                for (let product of order.getProducts()) 
+                    if (ordered[product.getTag()] )
+                        ordered[product.getTag()] += product.getOrderItem().getQuantity();
+                    else
+                        ordered[product.getTag()] = product.getOrderItem().getQuantity();
+            let fav = "", favCount = 0;
+            for (let key in ordered) 
+                if (favCount < ordered[key]) {
+                    fav = key;
+                    favCount = ordered[key];
+                }
+            return Product.findAll({where: {tag: [fav, req.user.getLastVisited()]}});
+        })
+        .then(products => {
+            res.render('shop/HomeScreen', {
+                products: products,
+                userType: req.userType,
+                user: req.user, // add user,
+                isRecommendation: true
+            });
+        })
+        .catch(err => console.log('getHome', err)); // catch
+};
+
 exports.getProduct = (req, res, next) => {
     const id = req.params.productId;
     Product
@@ -100,4 +134,124 @@ exports.deleteProductFromCart = (req, res, next) => {
             res.redirect('/cart');
         })
         .catch(err => console.log('deleteProductFromCart', err));
+exports.getProfile = (req, res, next) => {  //v2
+    if (req.userType === 'guest') { // v3
+        req.isAllowed = false;
+        return next();
+    }
+    if (req.userType === 'consumer') {
+        req.user
+            .getOrders({ include: ['products']})
+            .then(orders => {
+                res.render('shop/ProfileScreen', {
+                    user: req.user,
+                    userType: req.userType,
+                    orders: orders
+                })
+            })
+            .catch(err => console.log('getProfile', err));
+    }
+};
+
+exports.postUpdateProfile = (req, res, next) => {   // v2
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    if (name.length === 0 || email.length === 0 || password.length === 0) 
+        return res.redirect('/consumer-profile/' + req.user.getId());
+    req.user.setName(name);
+    req.user.setEmail(email);
+    req.user.setPassword(password);
+    req.user
+        .save()
+        .then(() => {
+            res.redirect('/');
+        })
+        .catch(err => console.log('postUpdateProfile', err));
+};
+
+exports.getPlaceOrder = (req, res, next) => { //v2
+    if (req.userType !== 'consumer') { // v3
+        req.isAllowed = false;
+        return next();
+    }
+    let check = 0;
+    req.user
+        .getCart()
+        .then(cart => {
+            return cart.getProducts();
+        })
+        .then(products => {
+            const check = +Product.getCheck(products).toFixed(2);
+            const offer = 10;
+            const orderTotal = ((check+10) * (100-offer) / 100).toFixed(2);
+            // console.log("the order", orderTotal);
+            res.render('shop/PlaceOrderScreen', {
+                products: products,
+                user: req.user,
+                userType: req.userType,
+                offer: offer,
+                check: check,
+                orderTotal:orderTotal
+            })
+        })
+        .catch(err => console.log('getPlaceOrder', err));
+};
+
+exports.postPlaceOrder = (req, res, next) => {  //v2 //v3
+    req.user
+        .getCart()
+        .then(cart => {
+            req.fetchedCart = cart;
+            return cart.getProducts()
+        })
+        .then(products => {
+            req.fetchedProducts = products;
+            for (let product of products) // check there is enough of the product in the stock
+                if (product.getCartItem().getQuantity() > product.getQuantity()) 
+                    return res.redirect('/cart');
+            next();
+        })
+        .catch(err => console.log('postPlaceOrder', err));
+}
+
+exports.postCreateOrder = (req, res, next) => { // v3 called only if there is enough items in the stock
+    const fetchedProducts = req.fetchedProducts;
+    const fetchedCart = req.fetchedCart;
+    const currencyFactor = {    //v4
+        '$': 1,
+        'LE': 16,
+        '€': 0.7
+    };
+    let createdOrder;
+    req.user
+        .createOrder()
+        .then((order) => {
+            createdOrder = order;
+            return order.addProducts(fetchedProducts, {through: {discount: 10}})
+        })
+        .then(() => {
+            for (let product of fetchedProducts) { //delete the bought items from the stock
+                product.setQuantity(product.getQuantity() - product.getCartItem().getQuantity());
+            }
+            return fetchedProducts.map(product => product.save())
+        })
+        .then(() => {
+            return fetchedCart.setProducts(null);
+        })
+        .then(() => {
+            return createdOrder.getProducts();
+        })
+        .then(products => {
+            res.render('shop/OrderPlacedScreen', {
+                user: req.user,
+                userType: req.userType,
+                offer: req.body.offer,
+                orderTotal: req.body.orderTotal * currencyFactor[req.body.currency], //v4
+                currency: req.body.currency,
+                products: products,
+                orderId: createdOrder.getId()
+            });
+        })
+        .catch(err => console.log('createOrder', err));
 };
