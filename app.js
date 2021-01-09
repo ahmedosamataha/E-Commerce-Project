@@ -21,6 +21,14 @@ app.use(express.static(path.join(__dirname, 'views', 'logos')));  // Converting 
 app.use(authRoutes);
 app.use(shopRoutes);
 
+app.use((req, res, next) => {
+    res.render('error/Error', {
+        userType: req.userType,
+        user: req.user,
+        isAllowed: req.isAllowed //v3
+    });
+});
+
 sequelize
     .sync()
     // .sync({force: true})
