@@ -3,6 +3,7 @@ const Consumer = require('../models/consumer');
 exports.findUser = (req, res, next) => {
     const id = req.cookies.userId;
     const type = req.cookies.userType;
+    req.isAllowed = true;   // v3
     if (id && type === 'consumer') {
         Consumer
             .findByPk(id)
@@ -27,7 +28,11 @@ exports.signOut = (req, res, next) => {
 };
 
 exports.getSignIn = (req, res, next) => {
-    res.render('shop/SignInScreen', {
+    if (req.userType !== 'guest') { // v3
+        req.isAllowed = false;
+        return next();
+    }
+    res.render('auth/SignInScreen', {
         userType: req.userType
     });
 };
