@@ -107,13 +107,9 @@ exports.getCart = (req, res, next) => {
             return cart.getProducts();
         })
         .then(products => {
-            let check = 0;
-            for (let product of products)
-                check += product.getPrice() * product.getCartItem().getQuantity();
             res.render('shop/CartScreen', {
                 products: products,
                 check: Product.getCheck(products).toFixed(2), // v2
-                check: check.toFixed(2),
                 userType: req.userType,
                 user: req.user // add user
             })
@@ -134,6 +130,8 @@ exports.deleteProductFromCart = (req, res, next) => {
             res.redirect('/cart');
         })
         .catch(err => console.log('deleteProductFromCart', err));
+};
+
 exports.getProfile = (req, res, next) => {  //v2
     if (req.userType === 'guest') { // v3
         req.isAllowed = false;
