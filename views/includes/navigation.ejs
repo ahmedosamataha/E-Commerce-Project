@@ -7,6 +7,9 @@
         <span class="ml-2">Capital
         <span style="background:-webkit-linear-gradient(#1AC29C, #207DA0); -Webkit-background-clip:text; -Webkit-text-fill-color:transparent">store</span>
         </span>
+        <% if (userType === 'consumer') { %>
+          <a href="/consumer-profile/<%=user.getId()%>" class="text-light m-2"style="text-decoration: none;" >Welcome, <%= user.getName() %>! </a>
+        <% } %>
       </a>
     </div>
     
