@@ -65,6 +65,16 @@
                                 <option>€</option>
                             </select>
                         </div>
+                        
+                        <!-- v5 -->
+                        <div class="mb-3">Your payment method:
+                            <select class="custom-select w-25 ml-2" name="paymentMethod">
+                                <option>Fawry</option>
+                                <option>Visa</option>
+                            </select>
+                            <label class="mt-4" for="email">Order reciever's Email(you can send a gift)</label>
+                            <input class="w-100 form-control" name="email" id="email" value="<%=user.getEmail()%>"></input>
+                        </div>
 
                         <input type="hidden" value="<%=orderTotal%>" name="orderTotal">
                         <input type="hidden" value="<%=offer%>" name="offer">
