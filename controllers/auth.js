@@ -37,7 +37,7 @@ exports.getSignIn = (req, res, next) => {
     });
 };
 
-exports.postSignIn = (req, res, next) => {
+exports.postSignInConsumer = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     Consumer
@@ -55,4 +55,29 @@ exports.postSignIn = (req, res, next) => {
             }
         })
         .catch(err => console.log('postSignIn', err));
+};
+
+exports.getSignUp = (req, res, next) => {  //v3
+    res.render('auth/RegisterScreen', {
+        userType: 'guest',
+    })
+};
+
+exports.postSignUpConsumer = (req, res, next) => {  //v3
+    if (req.body.type !== 'consumer') return next();
+    if (req.body.password !== req.body.repassword) res.redirect('/sign-up');
+    Consumer
+        .create({
+            name: req.body.name,
+            password: req.body.password,
+            email: req.body.email,
+            shippingAddress: req.body.shippingAddress,
+        })
+        .then(consumer => {
+            return consumer.createCart();
+        })
+        .then(() => {
+            res.redirect('/sign-in');
+        })
+        .catch(err => console.log('postSignUpConsumer', err));
 };
