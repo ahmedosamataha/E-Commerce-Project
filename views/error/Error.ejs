@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html>
+    <head>
+        <!-- <link rel="icon" href="logo.PNG" /> -->
+        <title>Capitalstore</title>
+    </head>
+    <body>
+    <header>
+      <%- include('../includes/navigation.ejs') %>
+    </header>
+
+    <main class="row m-0 p-0">
+        <div class="col col-6" style="text-align: center; margin-top: 2%;">
+            <h1 style="font-size: 10rem; background:-webkit-linear-gradient(#1AC29C, #207DA0); -Webkit-background-clip:text; -Webkit-text-fill-color:transparent; margin-bottom: 3%;">
+                Oops!
+            </h1>
+            <div style="border-radius: 50%; border: 15px solid black; width:fit-content; padding: 5%; margin:auto">
+                <!-- v3 -->
+                <% if (isAllowed) { %> 
+                    <h1 style="font-size: 9rem; color:#D3000C;">404</h1> 
+                    <h3>Page not found</h3>
+                <% } else { %>
+                    <h3>You are not</h3>
+                    <h3>allowed here!</h3>
+                <% } %>
+            </div>
+        </div>
+        <div class="col col-6" style="margin-top:10%">
+            <img src="https://github.com/ahmedosamataha/E-Commerce-Project/blob/master/views/logos/error_cart.gif?raw=true">
+        </div>
+        
+        
+    </main>
+             
+
+
+<footer class="fixed-bottom">
+    <nav class="navbar text-light position-absolute justify-content-center w-100" style="background-color: #000913; bottom: 0">
+      <span class ="mt-1">All rights reserved.</span>
+    </nav>
+</footer>
+</body>
+</html>
+
+
+
+
