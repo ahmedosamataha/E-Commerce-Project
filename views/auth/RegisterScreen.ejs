@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html>
+    <head>
+        <link rel="icon" href="logo.PNG" />
+        <title>Capitalstore</title>
+    </head>
+    <body>
+    <header>
+
+          <%- include('../includes/navigation') %>
+      </header>
+
+
+
+
+
+
+    <main>
+        <div class="col col-10 col-sm-8 col-md-6 col-lg-3 m-auto" style="padding:2% 0%; height:86vh">
+
+            <form method="POST" action="/sign-up" style="margin:0%; border:1px solid rgb(0,0,0,0.2); border-radius:10px">
+                <ul style="list-style-type:none; padding:8% 6% 3% 6%; font-weight:bold">
+                    <li><h2>Create Account</h2></li>
+                    <li>
+                        <label class="mt-4" for="name">Name</label>
+                        <input class="w-100 form-control" name="name" id="name" required="required"></input>
+                    </li>
+                    <li>
+                        <label class="mt-4" for="email">Email</label>
+                        <input class="w-100 form-control" type="email" name="email" id="email" required="required"></input>
+                    </li>
+		            <li>
+                        <label class="mt-4" for="shippingAddress">Shipping address(needed only if consumer)</label>
+                        <input class="w-100 form-control" type="shippingAddress" name="shippingAddress" id="shippingAddress" required="required"></input>
+                    </li>
+                    <li>
+                        <label class="mt-4" for="password">Password</label>
+                        <input class="w-100 form-control" type="password" id="password" name="password" required="required"></input>
+                    </li>
+                    <li>
+                        <label class="mt-4" for="repassword">Re-Enter Password</label>
+                        <input class="w-100 form-control" type="password" id="repassword" name="repassword" required="required"></input>
+                    </li>
+                    <li>
+                        <label class="mt-4" for="type">Type</label>
+                        <br>
+                        <input type="radio" name="type" id="consumer" value="consumer" required="required"><label class="mt-4 m-2" for="consumer">Consumer</label>
+                        <input type="radio" name="type" id="seller" value="seller" required="required"><label class="mt-4 m-2" for="seller">Seller</label>
+
+                    </li>
+                    <li class="mt-4">
+                        <button type="submit" class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold">
+                            Register
+                        </button>
+                    </li>
+                    <li class="mt-4">
+                       Already have an account?
+                    </li>
+                    <li>
+                        <a >Sign-In</a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+            </main>
+             
+
+
+
+
+
+
+
+
+
+<footer class="fixed-bottom">
+    <nav class="navbar text-light position-absolute justify-content-center w-100" style="background-color: #000913; bottom: 0">
+      <span class ="mt-1">All rights reserved.</span>
+    </nav>
+</footer>
+</body>
+</html>

@@ -13,12 +13,20 @@ const ConsumerTable = sequelize.define('consumer', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    shippingAddress: {  // v3
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     password: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    email: Sequelize.STRING,
-    gender: Sequelize.BOOLEAN
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    gender: Sequelize.BOOLEAN,
+    lastVisited: Sequelize.STRING //v4
 });
 
 module.exports = ConsumerTable;

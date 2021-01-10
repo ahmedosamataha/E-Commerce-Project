@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html>
+    <head>
+        <!-- <link rel="icon" href="logo.PNG" /> -->
+        <title>Capitalstore</title>
+    </head>
+    <body>
+    <header>
+        <%- include('../includes/navigation.ejs') %>
+    </header>
+
+
+
+
+
+
+    <main>
+        <div class="row m-0" style="padding:2% 0%">
+
+            <form method="POST" action="/update-profile" class="col col-11 col-sm-10 col-md-4 col-lg-3" style="margin:1% 0% 1% 2%; border:1px solid rgb(0,0,0,0.2); border-radius:10px">
+                <ul style="list-style-type:none; padding:8% 6%; font-weight:bold">
+                    <li><h2>Profile</h2></li>
+                    <li>
+                        <label class="mt-4" for="name">Your name</label>
+                        <input class="w-100 form-control" name="name" id="name" value="<%=user.getName()%>"></input>
+                    </li>
+                    <li>
+                        <label class="mt-4" for="email">Email</label>
+                        <input class="w-100 form-control" type="email" name="email" id="email" value="<%=user.getEmail()%>"></input>
+                    </li>
+                    <li>
+                        <label class="mt-4" for="password">Password</label>
+                        <input class="w-100 form-control" type="password" id="password" name="password"></input>
+                    </li>
+                    <li class="mt-4">
+                        <button type="submit" class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold">
+                            Update Profile
+                        </button>
+                    </li>
+                   
+                </ul>
+            </form>
+
+            <div class="row col col-11 col-sm-10 col-md-7 col-lg-8 ml-4 mt-3 m-2 " style="padding:0% 0%">
+                <div style="font-weight:bold">Products</div>
+                <div class="row">
+                    <div class="col-1" style="font-weight:bold ;">Order ID</div> <!-- v3 -->
+                    <div class="col-1" style="font-weight:bold ;">Product ID</div> <!-- v3 -->
+                    <div class="col-1" style="font-weight:bold ;">Name</div>
+                    <div class="col-1"style="font-weight:bold ;">Price</div>
+                    <div class="col-1"style="font-weight:bold ;">Category</div>
+                    <div class="col-1"style="font-weight:bold ;">Quantity</div>
+                </div> 
+                <% for(let order of orders) { %>
+                    <% for (let product of order.getProducts()) { %>
+                        <div class="row" style="margin: 1%;">
+                            <div class="col-1"><%=order.getId()%></div><!-- v3 -->
+                            <div class="col-1"><%=product.getId()%></div>
+                            <div class="col-1" ><%=product.getName()%></div>
+                            <div class="col-1">$<%=product.getPrice()%></div>
+                            <div class="col-1"><%=product.getTag()%></div>
+                            <div class="col-1"><%=product.getOrderItem().getQuantity()%></div>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+            </main>
+             
+
+
+
+
+
+
+
+
+
+<footer class="fixed-bottom">
+    <nav class="navbar text-light position-absolute justify-content-center w-100" style="background-color: #000913; bottom: 0">
+      <span class ="mt-1">All rights reserved.</span>
+    </nav>
+</footer>
+</body>
+</html>
