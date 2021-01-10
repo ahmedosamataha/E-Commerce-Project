@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
+const Consumer = require('../models/consumer'); //v5
 
 exports.getHome = (req, res, next) => {
     Product
@@ -207,8 +208,19 @@ exports.postPlaceOrder = (req, res, next) => {  //v2 //v3
             req.fetchedProducts = products;
             for (let product of products) // check there is enough of the product in the stock
                 if (product.getCartItem().getQuantity() > product.getQuantity()) 
-                    return res.redirect('/cart');
-            next();
+                    return null;
+            if (req.body.email === req.user.getEmail())//v5
+                return [req.user];
+            return  Consumer.findAll({where: {email: req.body.email }}); 
+        })
+        .then(reciever => {
+            if (reciever && reciever.length > 0) {
+                req.orderReciever = reciever[0];
+                return next();
+            }
+            else {
+                return res.redirect('/cart');
+            }
         })
         .catch(err => console.log('postPlaceOrder', err));
 }
@@ -222,7 +234,7 @@ exports.postCreateOrder = (req, res, next) => { // v3 called only if there is en
         '€': 0.7
     };
     let createdOrder;
-    req.user
+    req.orderReciever
         .createOrder()
         .then((order) => {
             createdOrder = order;
@@ -245,10 +257,12 @@ exports.postCreateOrder = (req, res, next) => { // v3 called only if there is en
                 user: req.user,
                 userType: req.userType,
                 offer: req.body.offer,
-                orderTotal: req.body.orderTotal * currencyFactor[req.body.currency], //v4
+                orderTotal: (req.body.orderTotal * currencyFactor[req.body.currency]).toFixed(2), //v5
                 currency: req.body.currency,
                 products: products,
-                orderId: createdOrder.getId()
+                orderId: createdOrder.getId(),
+                paymentMethod: req.body.paymentMethod, // v5
+                reciever: req.orderReciever // v5
             });
         })
         .catch(err => console.log('createOrder', err));
