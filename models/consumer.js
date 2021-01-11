@@ -96,7 +96,7 @@ class Consumer {
 
     static findById(id) {return Consumer.findByPk(id);}
     static findByPk(id) {
-        return UserTable.findByPk(id)
+        return ConsumerTable.findByPk(id)
             .then(consumer => {
                 if (consumer) {
                     return Consumer.wrapUp(consumer);
