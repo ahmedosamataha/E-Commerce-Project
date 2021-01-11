@@ -6,6 +6,7 @@ const cart = require('./tables/cart');
 const cartItem = require('./tables/cart-item');
 const order = require('./tables/order'); //v2 
 const orderItem = require('./tables/order-item');//v2
+const seller = require('./tables/seller');
 
 consumer.hasOne(cart);
 cart.belongsTo(consumer, {constraint: true, onDelete: 'CASCADE'}); // v3
