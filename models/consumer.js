@@ -35,7 +35,7 @@ class Consumer {
                         return Cart.wrapUp(cart);
                     });
     }
-                                 
+
     createOrder(prop) {  //v2
         return this.#consumer
                     .createOrder(prop)
@@ -43,7 +43,7 @@ class Consumer {
                         return Order.wrapUp(order);
                     });
     }
-                                 
+
     destroy() {
         return this.#consumer.destroy();
     }
@@ -59,7 +59,7 @@ class Consumer {
                         return Cart.wrapUp(cart);
                     });
     }
-    
+
     getOrders(searchProp) { //v2
         return this.#consumer
                     .getOrders(searchProp)
@@ -96,11 +96,11 @@ class Consumer {
 
     static findById(id) {return Consumer.findByPk(id);}
     static findByPk(id) {
-        return UserTable.findByPk(id)
+        return ConsumerTable.findByPk(id)
             .then(consumer => {
                 if (consumer) {
                     return Consumer.wrapUp(consumer);
-                } 
+                }
                 return consumer;
             });
     }
