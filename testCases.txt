@@ -26,7 +26,8 @@ Order class:
 1- create an order: consumer's id --> order record is created in the database
 2- finding by some attribute: attributes --> array of order objects with the given attributes
 3- find by id: id --> order object with this id
-4- destroy: id --> the order with this id is deleted from the database
+4- add and retrieve a product: product object exists in the database --> the product is added and retrieved by the order object
+5- destroy: id --> the order with this id is deleted from the database
 
 Product class:
 1- create an Product: name, tag, description, quantity, price, imageUrl --> Product record is created in the database
