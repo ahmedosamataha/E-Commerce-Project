@@ -57,7 +57,7 @@ describe('Product', function () {
 
     it('should find the test product by findAll', function(done) {
         Product
-            .findAll({where: {quantity: testProduct.quantity}})
+            .findAll({where: {id: testProduct.id}})
             .then(products => {
                 areEqual(products[0], testProduct);
                 done();
