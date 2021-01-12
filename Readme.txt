@@ -12,5 +12,6 @@ on VS code,
 	1- open the project folder with VS code
 	2- run the command "node install --also=dev" (without the quotes) to install the dependencies packages.
 	3- run either command "node app" or "node start" (without the quotes) to run the server.
+	4- open your favourite browser and go to 'localhost:3000'
 
 as mentioned before, you need internet connection, otherwise the pages will be viewed without styling.
