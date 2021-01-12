@@ -30,7 +30,7 @@ class OrderItem {
         if (Array.isArray(orderItem))
             return orderItem.map(c => {
                 if (c)
-                    return new Order(c);
+                    return new OrderItem(c);
                 return c;
             });
         if (orderItem)
