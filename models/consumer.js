@@ -2,6 +2,8 @@ const Sequelize = require('sequelize');
 
 const Order = require('./order'); //v2
 const Cart = require('./cart');
+const Offer = require('./offer');   //v8
+
 const ConsumerTable = require('../database/tables/consumer');
 
 class Consumer {
@@ -57,6 +59,14 @@ class Consumer {
                     .getCart()
                     .then(cart => {
                         return Cart.wrapUp(cart);
+                    });
+    }
+      
+    getOffer() {    //v8
+        return this.#consumer
+                    .getOffer()
+                    .then(offer => {
+                        return Offer.wrapUp(offer);
                     });
     }
 
