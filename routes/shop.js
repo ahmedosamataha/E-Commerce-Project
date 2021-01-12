@@ -16,6 +16,7 @@ router.get('/cart', shopController.getCart);
 router.post('/delete-product-from-cart', shopController.deleteProductFromCart);
 
 router.get('/consumer-profile/:consumerId', shopController.getProfile); // v2
+router.get('/seller-profile/:sellerId', shopController.getProfile); // v7
 
 router.post('/update-profile', shopController.postUpdateProfile); // v2
 
