@@ -47,6 +47,13 @@ Cart class:
 
 Integration testing:
 
+the authentication controllers:
+1- sign up a consumer: tester's data --> consumer account with the given info
+2- sign in: tester's email and password --> tester is signed in with cookies modified accordingly
+2- identified as logged in: user's cookies --> user's account
+3- the user logged in already and tries to use his account: user's cookies --> user's account is retrieved and forwarded to other functions in a given session.
+4- log out: user's cookies --> user's cookies are deleted and logged out
+
 Consumer behaviour simulation: 
 NOTE: "the following test cases are run in the given order"
 Tester uses a consumer account
