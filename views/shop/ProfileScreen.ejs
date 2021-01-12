@@ -46,22 +46,48 @@
             <div class="row col col-11 col-sm-10 col-md-7 col-lg-8 ml-4 mt-3 m-2 " style="padding:0% 0%">
                 <div style="font-weight:bold">Products</div>
                 <div class="row">
-                    <div class="col-1" style="font-weight:bold ;">Order ID</div> <!-- v3 -->
+                    <% if(userType === 'consumer') {%> <div class="col-1" style="font-weight:bold ;">Order ID</div><%}%> <!-- v7 -->
                     <div class="col-1" style="font-weight:bold ;">Product ID</div> <!-- v3 -->
                     <div class="col-1" style="font-weight:bold ;">Name</div>
                     <div class="col-1"style="font-weight:bold ;">Price</div>
                     <div class="col-1"style="font-weight:bold ;">Category</div>
                     <div class="col-1"style="font-weight:bold ;">Quantity</div>
+                    <% if(userType === 'seller') {%> <div class="col-1" style="font-weight:bold ;"></div><%}%> <!-- v7 -->
                 </div> 
-                <% for(let order of orders) { %>
-                    <% for (let product of order.getProducts()) { %>
+                <% if (userType == 'consumer') { %>   <!--v7-->
+                    <% for(let order of orders) { %>
+                        <% for (let product of order.getProducts()) { %>
+                            <div class="row" style="margin: 1%;">
+                                <div class="col-1"><%=order.getId()%></div><!-- v3 -->
+                                <div class="col-1"><%=product.getId()%></div>
+                                <div class="col-1" ><%=product.getName()%></div>
+                                <div class="col-1">$<%=product.getPrice()%></div>
+                                <div class="col-1"><%=product.getTag()%></div>
+                                <div class="col-1"><%=product.getOrderItem().getQuantity()%></div>
+                            </div>
+                        <% } %>
+                    <% } %>
+                <% } else if (userType === 'seller') { %>   <!--v7-->
+                    <% for (let product of products) { %>
                         <div class="row" style="margin: 1%;">
-                            <div class="col-1"><%=order.getId()%></div><!-- v3 -->
                             <div class="col-1"><%=product.getId()%></div>
                             <div class="col-1" ><%=product.getName()%></div>
                             <div class="col-1">$<%=product.getPrice()%></div>
                             <div class="col-1"><%=product.getTag()%></div>
-                            <div class="col-1"><%=product.getOrderItem().getQuantity()%></div>
+                            <div class="col-1"><%=product.getQuantity()%></div>
+                            <div class="col-1">
+                            <a href="/update-product/<%=product.getId()%>" class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold" >
+                                edit
+                            </a>
+                            </div>
+                            <div class="col-1">
+                                <form action="/sellerDeleteTheirProduct" method="POST">
+                                    <input type="hidden" name="productId" id="productId" value="<%=product.getId()%>">
+                                    <button class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold" type="submit">
+                                        Del
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     <% } %>
                 <% } %>
@@ -69,14 +95,6 @@
         </div>
             </main>
              
-
-
-
-
-
-
-
-
 
 <footer class="fixed-bottom">
     <nav class="navbar text-light position-absolute justify-content-center w-100" style="background-color: #000913; bottom: 0">
