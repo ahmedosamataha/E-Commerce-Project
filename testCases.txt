@@ -47,12 +47,11 @@ Cart class:
 
 Integration testing:
 
-"the following test cases are run in the given order for each integration test"
-
 Consumer behaviour simulation: 
-NOTE:"here we are talking about the consumer as an external user not the classs
+NOTE: "the following test cases are run in the given order"
+Tester uses a consumer account
 1- sign up: tester's data (email, password, repassword, name, shippingAddress) --> a new Consumer account is created for the tester with the given data along with a cart for him
-2- sign in: tester's email and password --> the consumer is logged in using cookies
+2- sign in: tester's email and password --> the tester is logged in using cookies
 3- the user signed in and using his account: tester's cookis --> tester's account
 4- get tester's profile: the consumer logged in id in his cookies --> the account is retrieved with its data and orders
 5- update the tester's profile: modified data --> the tester's profile is modified
@@ -60,5 +59,17 @@ NOTE:"here we are talking about the consumer as an external user not the classs
 7- the tester wants his cart: tester's account(retrieved earlier) --> the products of his cart are retrieved from the database.
 8- the tester wants to order his cart: tester's account(retrieved earlier) --> the products are added to a newly created order and removed from his cart
 9- the tester wants recommendation based on his early activity --> related products are retrieved
-10- the tester wants to log out: tester's account --> his cookies are cleared and returned to as guest
+10- the tester wants to log out: tester's account --> his cookies are cleared and returned as a guest
 
+Seller behaviour simulation:
+NOTE: "the following test cases are run in the given order"
+Tester uses a seller account
+1- sign up: tester's data (email, password, repassword, name) --> a new Seller account is created for the tester with the given data
+2- sign in: tester's email and password --> the tester is logged in using cookies
+3- the user signed in and using his account: tester's cookis --> tester's account
+4- the tester creates a new product: the products' information --> the tester created a new product with the info he gave
+5- the tester requests his profile info: the tester's account --> the tester's info is retrieved along with the product he created
+6- the tester requests changing his info: the new info --> the tester's account is modified using the new data
+7- the tester wants to edit a product he created: the new product's info --> the tester's product is modified accordingly
+8- the tester wants to delete a product he created: the new product's id --> the tester's product is deleted
+9- the tester signs out: the tester's account --> the tester is logged out and returned as a guest
