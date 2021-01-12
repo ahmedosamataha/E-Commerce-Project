@@ -1,6 +1,7 @@
 all the test cases are presentas {name}: {i/p} --> {o/p}
 
 class level testing:
+
 Seller class:
 1- creating seller: name, email and password --> Seller record in database is created with the given attributes and the object is returned
 2- finding by some attribute: attributes --> array of seller object with the given attributes
@@ -40,3 +41,24 @@ Cart class:
 3- find by id: id --> Cart object with this id
 4- destroy: id --> the Cart with this id is deleted from the database
 5- add product: product and cart objects --> the product is added to the cart
+
+
+
+
+Integration testing:
+
+"the following test cases are run in the given order for each integration test"
+
+Consumer behaviour simulation: 
+NOTE:"here we are talking about the consumer as an external user not the classs
+1- sign up: tester's data (email, password, repassword, name, shippingAddress) --> a new Consumer account is created for the tester with the given data along with a cart for him
+2- sign in: tester's email and password --> the consumer is logged in using cookies
+3- the user signed in and using his account: tester's cookis --> tester's account
+4- get tester's profile: the consumer logged in id in his cookies --> the account is retrieved with its data and orders
+5- update the tester's profile: modified data --> the tester's profile is modified
+6- the tester add a product to their cart: the product id --> the product is added to the tester's cart
+7- the tester wants his cart: tester's account(retrieved earlier) --> the products of his cart are retrieved from the database.
+8- the tester wants to order his cart: tester's account(retrieved earlier) --> the products are added to a newly created order and removed from his cart
+9- the tester wants recommendation based on his early activity --> related products are retrieved
+10- the tester wants to log out: tester's account --> his cookies are cleared and returned to as guest
+
