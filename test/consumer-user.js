@@ -40,7 +40,7 @@ function printProduct(product) {
     console.log(product.getDescription());
 }
 
-describe('Consumer user - controllers', function () {
+describe('Consumer user', function () {
     const testConsumer = {
         email: 'test@test.comshop',
         password: 'testshop',
