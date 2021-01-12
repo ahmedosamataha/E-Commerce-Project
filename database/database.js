@@ -7,6 +7,8 @@ const cart = require('./tables/cart');
 const cartItem = require('./tables/cart-item');
 const order = require('./tables/order'); //v2 
 const orderItem = require('./tables/order-item');//v2
+const review = require('./tables/review');  //v8
+const offer = require('./tables/offer');  //v8
 
 consumer.hasOne(cart);
 cart.belongsTo(consumer, {constraint: true, onDelete: 'CASCADE'}); // v3
@@ -22,5 +24,9 @@ order.belongsToMany(product, {through: orderItem}); // v2
 
 seller.hasMany(product);    //v7
 product.belongsTo(seller);  //v7
+
+product.hasMany(review);    //v8
+
+consumer.hasOne(offer);    //v8
 
 module.exports = sequelize;
