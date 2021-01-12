@@ -24,6 +24,6 @@ router.get('/place-order', shopController.getPlaceOrder); // v2
 router.post('/place-order', shopController.postPlaceOrder); // v2
 router.post('/place-order', shopController.postCreateOrder); // v3
 
-// router.get('/sign-in', shopController.getHome);
+router.post('/search', shopController.postSearch);  //v6
 
 module.exports = router;
