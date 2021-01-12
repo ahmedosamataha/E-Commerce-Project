@@ -53,20 +53,33 @@ exports.getRecommendations = (req, res, next) => { //v3
 
 exports.getProduct = (req, res, next) => {
     const id = req.params.productId;
+    let fetchedProduct;   //v8
     Product
         .findByPk(id)
         .then(product => {
+            fetchedProduct = product;
+            return product.getReviews();
+        })
+        .then(reviews => {
+            let reviewAverage = 0;
+            for (let review of reviews)
+                reviewAverage += +review.getRate();
+            if (reviews.length)
+                reviewAverage /= reviews.length;
             if (req.userType === 'consumer') {  //v4
                 // console.log('adding lastVidited')
-                req.user.setLastVisited(product.getTag());
+                req.user.setLastVisited(fetchedProduct.getTag());   //v8
                 req.user.save();
             }
             res.render('shop/ProductDetailsScreen', {
-                product: product,
+                product: fetchedProduct,    //v8
+                reviews: reviews,   //v8
                 userType: req.userType,
-                user: req.user // add user
+                user: req.user, // add user
+                reviewAverage: reviewAverage
             });
-        });
+        })
+        .catch(err => console.log('getProduct', err));
 };
 
 exports.postAddToCart = (req, res, next) => {
@@ -189,14 +202,19 @@ exports.getPlaceOrder = (req, res, next) => { //v2
         return next();
     }
     let check = 0;
+    let offer = 0; //v8
     req.user
-        .getCart()
+        .getOffer()
+        .then(theOffer => {
+            if (theOffer)
+                offer = theOffer.getQuantity();
+            return req.user.getCart();
+        })
         .then(cart => {
             return cart.getProducts();
         })
         .then(products => {
             const check = +Product.getCheck(products).toFixed(2);
-            const offer = 10;
             const orderTotal = ((check+10) * (100-offer) / 100).toFixed(2);
             // console.log("the order", orderTotal);
             res.render('shop/PlaceOrderScreen', {
@@ -380,4 +398,20 @@ exports.getUpdateProduct = (req, res, next) => {
                 product: product
             })
         })
+}
+
+exports.postAddReview = (req, res, next) => {   //v8
+    Product
+        .findById(req.body.productId)
+        .then(product => {
+            return product.createReview({
+                consumerName: req.user.getName(),
+                text: req.body.text,
+                rate: req.body.rate
+            })
+        })
+        .then(() => {
+            res.redirect('/')
+        })
+        .catch(err => console.log('postAddReview', err));
 }
