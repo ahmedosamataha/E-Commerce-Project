@@ -26,4 +26,11 @@ router.post('/place-order', shopController.postCreateOrder); // v3
 
 router.post('/search', shopController.postSearch);  //v6
 
+router.get('/create-product', shopController.getCreateProduct); //v7
+router.post('/create-product', shopController.postCreateProduct); //v7
+
+router.post('/sellerDeleteTheirProduct', shopController.postDeleteProduct); //v7
+
+router.get('/update-product/:productId', shopController.getUpdateProduct); //v7
+
 module.exports = router;
