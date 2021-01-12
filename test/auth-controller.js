@@ -27,13 +27,13 @@ describe('Auth - controller', function () {
         name: 'testerauth'
     }
 
-    // before(function(done) {
-    //     Consumer.create(testConsumer)
-    //     .then(consumer => {
-    //         testConsumer.id = consumer.getId();
-    //         done();
-    //     })
-    // });
+    before(function(done) {
+        Consumer.create(testConsumer)
+        .then(consumer => {
+            testConsumer.id = consumer.getId();
+            done();
+        })
+    });
 
     it('should sign up testConsumer', function(done) {
         const req = {
