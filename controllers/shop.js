@@ -2,6 +2,8 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 const Consumer = require('../models/consumer'); //v5
 
+const { Op } = require("sequelize"); //v6
+
 exports.getHome = (req, res, next) => {
     Product
         .findAll()
@@ -267,3 +269,29 @@ exports.postCreateOrder = (req, res, next) => { // v3 called only if there is en
         })
         .catch(err => console.log('createOrder', err));
 };
+
+
+exports.postSearch = (req, res, next) => {  //v6
+    Product
+        .findAll({where: { [Op.or]: [
+                {description: {
+                    [Op.substring]: req.body.keyword
+                }},
+                {name: {
+                    [Op.substring]: req.body.keyword
+                }},
+                {tag: {
+                    [Op.substring]: req.body.keyword
+                }}
+            ]
+        }})
+        .then(products => {
+            res.render('shop/HomeScreen', {
+                products: products,
+                userType: req.userType,
+                user: req.user, // add user,
+                keyword: req.body.keyword
+            });
+        })
+        .catch(err => console.log('getHome', err)); // catch
+}
