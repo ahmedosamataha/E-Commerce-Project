@@ -13,6 +13,22 @@
 
 
     <main>
+      <!-- v6 -->
+      <form method="POST" action="/search" class="col col-11 col-sm-10 col-md-4 col-lg-3" style="margin:1% 0% 1% 2%; border:1px solid rgb(0,0,0,0.2); border-radius:10px">
+        <ul style="list-style-type:none; padding:8% 6%; font-weight:bold">
+          <li><h2>Search the products</h2></li>
+          <li>
+              <label class="mt-4" for="search">Keyword:</label>
+              <input class="w-100 form-control" type="keyword" id="keyword" name="keyword" value="<%=typeof keyword !== 'undefined' ? keyword : ''%>"></input>
+          </li>
+          <li>
+            <button type="submit" class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold">
+                Search
+            </button>
+          </li>
+        </ul>
+    </form>
+
         <% if (products.length > 0) { %>
           <div class="row m-0" style="padding: 0 7% 4% 7%">
             <% for (let product of products) { %>
