@@ -4,6 +4,7 @@ const ProductTable = require('../database/tables/product');
 
 const CartItem = require('./cart-item');
 const OrderItem = require('./order-item'); //v2
+const Review = require('./review'); //v8
 
 class Product {
     #product;
@@ -40,6 +41,22 @@ class Product {
         return this.#product.save();
     }
 
+    createReview(review) {  //v8
+        return this.#product
+                        .createReview(review)
+                        .then(review => {
+                            return Review.wrapUp(review);
+                        })
+    }
+
+    getReviews(searchProp) {   //v8
+        return this.#product
+                    .getReviews(searchProp)
+                    .then(reviews => {
+                        return Review.wrapUp(reviews);
+                    });
+    }
+                 
     static findAll(searchProp) {
         return ProductTable
                 .findAll(searchProp)
