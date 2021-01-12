@@ -1,0 +1,28 @@
+all the test cases are presentas {name}: {i/p} --> {o/p}
+
+class level testing:
+Seller class:
+1- creating seller: name, email and password --> Seller record in database is created with the given attributes and the object is returned
+2- finding by some attribute: attributes --> array of seller object with the given attributes
+3- finding by id: id --> seller object with this id
+4- create a product: product name, quantity, description, tag, price and imageUrl --> Seller creates the given product
+5- destroy: id --> the seller with this id is deleted from the database
+6- modify: the seller's new attributes --> this seller is modified in the database and returned to the class user
+7- get its products: seller object --> array of the products in the database created by this seller
+
+Consumer class:
+1- creating consumer: name, email and password, shipping address --> consumer record in database record is created with the given attributes and the object is returned
+2- finding by some attribute: attributes --> array of consumer object with the given attributes
+3- find by id: id --> consumer bject with this id
+4- create a cart: consumer object --> cart object is created owned by this consumer is created in the database
+5- destroy: id --> the consumer with this id is deleted from the database
+6- modify: the consumer's new attributes --> this consumer is modified in the database and returned to the class user
+7- get its cart: consumer object --> cart object owned by this consumer
+8- create an order: consumer object --> order object is created owned by this consumer is created in the database populated by the consumer's cart's products
+9- get its orders: consumer object --> orders' objects created by this consumer
+
+Order class:
+1- create an order: consumer's id --> order record is created in the database
+2- finding by some attribute: attributes --> array of order object with the given attributes
+3- find by id: id --> order object with this id
+4- destroy: id --> the order with this id is deleted from the database
