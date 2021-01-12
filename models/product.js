@@ -25,7 +25,7 @@ class Product {
     getQuantity() {return this.#product.quantity;}
     getTag() {return this.#product.tag;} //v2
 
-    setName(name) {this.#product.title = name;}
+    setName(name) {this.#product.name = name;}
     setImageUrl(imageUrl) {this.#product.imageUrl = imageUrl;}
     setPrice(price) {this.#product.price = price;}
     setDescription(description) {this.#product.description = description;}
