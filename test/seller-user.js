@@ -38,7 +38,7 @@ function printProduct(product) {
     console.log(product.getDescription());
 }
 
-describe('Seller user - controllers', function () {
+describe('Seller user', function () {
     const testSeller = {
         email: 'test@test.comshopseller',
         password: 'testshopseller',
