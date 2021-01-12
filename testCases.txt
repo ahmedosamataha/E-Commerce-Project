@@ -36,6 +36,12 @@ Product class:
 4- destroy: id --> the Product with this id is deleted from the database
 5- modify: id and some new attributes --> the product record in the database is updated and the new object is returned
 
+Offer class:
+1- create an offer: consumer's id --> offer record is created in the database
+2- finding by some attribute: attributes --> array of offer objects with the given attributes
+3- find by id: id --> review object with this id
+4- destroy: id --> the offer with this id is deleted from the database
+
 Cart class:
 1- create an cart: consumer's id --> Cart record is created in the database
 2- finding by some attribute: attributes --> array of Cart objects with the given attributes
@@ -43,7 +49,11 @@ Cart class:
 4- destroy: id --> the Cart with this id is deleted from the database
 5- add product: product and cart objects --> the product is added to the cart
 
-
+Review class:
+1- create an review: consumer's id --> review record is created in the database
+2- finding by some attribute: attributes --> array of review objects with the given attributes
+3- find by id: id --> review object with this id
+4- destroy: id --> the review with this id is deleted from the database
 
 
 Integration testing:
@@ -66,8 +76,10 @@ Tester uses a consumer account
 6- the tester add a product to their cart: the product id --> the product is added to the tester's cart
 7- the tester wants his cart: tester's account(retrieved earlier) --> the products of his cart are retrieved from the database.
 8- the tester wants to order his cart: tester's account(retrieved earlier) --> the products are added to a newly created order and removed from his cart
-9- the tester wants recommendation based on his early activity --> related products are retrieved
-10- the tester wants to log out: tester's account --> his cookies are cleared and returned as a guest
+9- the tester writes a review: the tester's review --> the review is added under the name of the consumer
+10- the tester searchs through the product: the search keyword --> the filtered products array
+11- the tester wants recommendation based on his early activity --> related products are retrieved
+12- the tester wants to log out: tester's account --> his cookies are cleared and returned as a guest
 
 Seller behaviour simulation:
 NOTE: "the following test cases are run in the given order"
