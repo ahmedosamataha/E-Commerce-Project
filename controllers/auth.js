@@ -62,7 +62,7 @@ exports.postSignInSeller = (req, res, next) => {
                 res.redirect('/');
             }
             else {
-                res.redirect('/sign-in');
+                next(); //v8
             }
         })
         .catch(err => console.log('postSignIn', err));
