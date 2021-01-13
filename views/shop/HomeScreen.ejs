@@ -46,7 +46,14 @@
                     <div style="font-weight:bold; margin-bottom:3%"><%= product.getQuantity() %> items in the stock</div>
                     <hr style="border-top:1px solid rgba(0, 0, 0, 0.3)"></hr>
 
-                    <a href="/products/<%= product.getId() %>" class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.4); font-weight:bold">Details</a>
+                    <% if (userType === 'admin') { %>
+                      <form action="/sellerDeleteTheirProduct" method="POST">
+                        <input type="hidden" name="productId" id="productId" value="<%=product.getId()%>">
+                        <button class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.4); font-weight:bold">Delete</a>
+                      </form>
+                    <% } else { %>
+                      <a href="/products/<%= product.getId() %>" class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.4); font-weight:bold">Details</a>
+                    <% } %>
                   </div>
               </div>
             <% } %>
