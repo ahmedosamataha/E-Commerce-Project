@@ -49,8 +49,12 @@ class Review {
                 });
     }
 
-    static findAll(searchProp) {
-        return ReviewTable.findAll(searchProp);
+    static findAll(searchProp) {    //v9
+        return ReviewTable
+                .findAll(searchProp)
+                .then(reviews => {
+                    return Review.wrapUp(reviews);
+                })
     }
 
     static getDB() {
