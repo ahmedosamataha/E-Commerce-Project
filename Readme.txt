@@ -1,6 +1,16 @@
 To run the code you need Node js (tested on VS code), MySQL server and preferably MySQL workbench,
 as well as internet connection (for the styling of the bootstrap).
 
+The links to the required programs:
+
+VS code:
+https://code.visualstudio.com/download
+
+Node js:
+https://nodejs.org/en/download/
+
+MySQL: (remember to configure the root username to "root" and the password to "000" (without the quotes)
+https://dev.mysql.com/downloads/
 
 on MySQL server, you need to set up as follows:
 	root username: root
@@ -19,16 +29,3 @@ To run the code
 	6- open your favourite browser and go to 'localhost:3000' to use the server
 
 as mentioned before, you need internet connection, otherwise the pages will be viewed without styling.
-
-
-
-The links to the required programs:
-
-VS code:
-https://code.visualstudio.com/download
-
-Node js:
-https://nodejs.org/en/download/
-
-MySQL: (remember to configure the root username to "root" and the password to "000" (without the quotes)
-https://dev.mysql.com/downloads/
