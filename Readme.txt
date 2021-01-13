@@ -9,7 +9,8 @@ and a create a schema with the name "sw-project"
 (otherwise you need to modify these attributes in /database/init.js to your environment)
 
 To run the code
-	1- make sure that MySQL is running and configured as mentioned earlier, otherwise open MySQL workbench and from menu bar choose server --> startup/shutdown --> start server
+	1- make sure that MySQL is running and configured as mentioned earlier, otherwise open MySQL workbench and from menu bar 
+	   choose server --> startup/shutdown --> start server
 	2- right clink on schemas, choose "create schema", and name it "sw-project"
 	3- open the project folder with VS code
 	4- in the terminal, write the command "npm install --also=dev" (without the quotes) to install the dependencies packages. 
@@ -18,3 +19,16 @@ To run the code
 	6- open your favourite browser and go to 'localhost:3000' to use the server
 
 as mentioned before, you need internet connection, otherwise the pages will be viewed without styling.
+
+
+
+The links to the required programs:
+
+VS code:
+https://code.visualstudio.com/download
+
+Node js:
+https://nodejs.org/en/download/
+
+MySQL: (remember to configure the root username to "root" and the password to "000" (without the quotes)
+https://dev.mysql.com/downloads/
