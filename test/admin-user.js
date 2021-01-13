@@ -8,6 +8,8 @@ const { should } = require('chai');
 const Consumer = require('../models/consumer');
 const Seller = require('../models/seller');
 const Product = require('../models/product');
+const Review = require('../models/review');
+const Offer = require('../models/offer');
 
 function areEqual(consumer, testConsumer) {
     const name = consumer.getName();
@@ -105,6 +107,26 @@ describe('Admin user', function () {
             expect(req.userType).to.equal('admin');
             done();
         })
+    })
+
+    it('should allow the admin to add offers', function(done) { //v10
+        req.body = {
+            userId: testConsumer.id,
+            quantity: 10
+        }
+
+        const res = {
+            redirect: function(path) {
+                Consumer.findById(testConsumer.id)
+                    .then(consumer => consumer.getOffer())
+                    .then(offer => {
+                        expect(offer).not.to.be.null;
+                        done();
+                    })
+            }
+        }
+
+        shopControllers.postOfferConsumer(req, res, () => {});
     })
 
     it('should allow the admin to delete the test product', function(done) {
