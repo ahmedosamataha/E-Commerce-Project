@@ -8,6 +8,7 @@ router.use(authController.findUser);
 router.use('/sign-out', authController.signOut);
 
 router.get('/sign-in', authController.getSignIn);
+router.post('/sign-in', authController.postSignInAdmin); //v9
 router.post('/sign-in', authController.postSignInSeller); //v7
 router.post('/sign-in', authController.postSignInConsumer);
 
