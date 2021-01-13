@@ -27,14 +27,6 @@ describe('Auth - controller', function () {
         name: 'testerauth'
     }
 
-    before(function(done) {
-        Consumer.create(testConsumer)
-        .then(consumer => {
-            testConsumer.id = consumer.getId();
-            done();
-        })
-    });
-
     it('should sign up testConsumer', function(done) {
         const req = {
             body: {
@@ -124,13 +116,17 @@ describe('Auth - controller', function () {
         authControllers.postSignInConsumer(req, res, () => {})
     })
      
-    after(function(done) {
+    it('should delete the test consumer', function(done) {
         Consumer
-            .findById(testConsumer.id)
-            .then(consumer => {
-                return consumer.destroy();
+            .findAll({where: {id: testConsumer.id}})
+            .then(consumers => {
+                return consumers[0].destroy();
             })
             .then(() => {
+                return Consumer.findAll({where: {id: testConsumer.id}});
+            })
+            .then(consumers => {
+                expect(consumers).to.have.property('length', 0);
                 done();
             })
     })
