@@ -27,6 +27,7 @@ Order class:
 2- finding by some attribute: attributes --> array of order objects with the given attributes
 3- find by id: id --> order object with this id
 4- add and retrieve a product: product object exists in the database --> the product is added and retrieved by the order object
+   (assumes there is a product with id of 1 in the DB, otherwise it fails)
 5- destroy: id --> the order with this id is deleted from the database
 
 Product class:
@@ -46,8 +47,9 @@ Cart class:
 1- create an cart: consumer's id --> Cart record is created in the database
 2- finding by some attribute: attributes --> array of Cart objects with the given attributes
 3- find by id: id --> Cart object with this id
-4- destroy: id --> the Cart with this id is deleted from the database
-5- add product: product and cart objects --> the product is added to the cart
+4- add product: product and cart objects --> the product is added to the cart
+   (assumes there is a product with id of 1 in the DB, otherwise it fails)
+5- destroy: id --> the Cart with this id is deleted from the database
 
 Review class:
 1- create an review: consumer's id --> review record is created in the database
