@@ -4,13 +4,16 @@ as well as internet connection (for the styling of the bootstrap).
 The links to the required programs:
 
 VS code:
-https://code.visualstudio.com/download
+to download: https://code.visualstudio.com/download
+to install: https://www.youtube.com/watch?v=JGsyJI8XG0Y
 
 Node js:
-https://nodejs.org/en/download/
+to download: https://nodejs.org/en/download/
+to install: https://www.youtube.com/watch?v=eauREi0vwB0
 
 MySQL: (remember to configure the root username to "root" and the password to "000" (without the quotes)
-https://dev.mysql.com/downloads/
+to download: https://dev.mysql.com/downloads/
+to install: https://www.youtube.com/watch?v=u96rVINbAUI&t=7s
 
 on MySQL server, you need to set up as follows:
 	root username: root
