@@ -53,7 +53,7 @@ exports.getRecommendations = (req, res, next) => { //v3
 };
 
 exports.getProduct = (req, res, next) => {
-    const id = req.params.prodId;
+    const id = req.params.productId;
     let fetchedProduct;   //v8
     let reviews;   //v8
     let reviewAverage = 0;
@@ -105,7 +105,7 @@ exports.postAddToCart = (req, res, next) => {
         })
         .then(cart => {
             fetchedCart = cart;
-            return cart.getProducts({where: {id: productId}});
+            return cart.getProducts({where: {id: productId}}); 
         })
         .then(products => {
             if (products.length > 0) {
