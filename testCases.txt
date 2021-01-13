@@ -97,6 +97,7 @@ Tester uses a seller account
 Amin behaviour simulation: 
 1-sign in: admin's email and password --> admin is signed in and their cookies is adjusted accordingly
 "create dummy product, seller and consumer accounts"
-2- admin can delete seller accounts: admin chooses the account --> the admin deleted the sellers account
-3- admin can delete consumer accounts: admin chooses the account --> the admin deleted the consumer account
-4- admin can delete products: admin chooses the product --> the admin deleted the product
+2- admin can give offers: admin chooses a consumer --> the admin has given the consumer an offer
+3- admin can delete seller accounts: admin chooses the account --> the admin deleted the sellers account
+4- admin can delete consumer accounts: admin chooses the account --> the admin deleted the consumer account
+5- admin can delete products: admin chooses the product --> the admin deleted the product
