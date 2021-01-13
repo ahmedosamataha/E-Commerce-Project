@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 const Consumer = require('../models/consumer'); //v5
+const Seller = require('../models/seller'); //v9
 
 const { Op } = require("sequelize"); //v6
 
@@ -52,16 +53,21 @@ exports.getRecommendations = (req, res, next) => { //v3
 };
 
 exports.getProduct = (req, res, next) => {
-    const id = req.params.productId;
+    const id = req.params.prodId;
     let fetchedProduct;   //v8
+    let reviews;   //v8
+    let reviewAverage = 0;
     Product
         .findByPk(id)
         .then(product => {
             fetchedProduct = product;
-            return product.getReviews();
+            if (product)
+                return product.getReviews();
+            else
+                return [];
         })
-        .then(reviews => {
-            let reviewAverage = 0;
+        .then(theReviews => {
+            reviews = theReviews;
             for (let review of reviews)
                 reviewAverage += +review.getRate();
             if (reviews.length)
@@ -69,9 +75,12 @@ exports.getProduct = (req, res, next) => {
             if (req.userType === 'consumer') {  //v4
                 // console.log('adding lastVidited')
                 req.user.setLastVisited(fetchedProduct.getTag());   //v8
-                req.user.save();
+                return req.user.save();
             }
-            res.render('shop/ProductDetailsScreen', {
+            return;
+        })
+        .then(() => {
+            return res.render('shop/ProductDetailsScreen', {
                 product: fetchedProduct,    //v8
                 reviews: reviews,   //v8
                 userType: req.userType,
@@ -383,7 +392,10 @@ exports.postDeleteProduct = (req, res, next) => {   //v7
             return;
         })
         .then(() => {
-            res.redirect('/seller-profile/' + req.user.getId());
+            if (req.userType === 'seller')
+                res.redirect('/seller-profile/' + req.user.getId());
+            else
+                res.redirect('/');
         })
         .catch(err => console.log('postDeleteProduct', err));
 }
@@ -414,4 +426,41 @@ exports.postAddReview = (req, res, next) => {   //v8
             res.redirect('/')
         })
         .catch(err => console.log('postAddReview', err));
+}
+
+exports.getUsersList = (req, res, next) => {  //v9
+    const Users = (req.path === '/sellers-list' ? Seller : Consumer);
+    Users.findAll()
+        .then(users => {
+            res.render('shop/UsersListScreen', {
+                user: req.user,
+                userType: req.userType,
+                users: users,
+                usersType: (req.path === '/sellers-list' ? 'seller' : 'consumer')
+            })
+        })
+}
+
+exports.postDeleteUser = (req, res, next) => {  //v9
+    const Users = (req.body.userType === 'seller' ? Seller : Consumer);
+    Users.findById(req.body.userId)
+        .then(user => {
+            return user.destroy();
+        })
+        .then(() => {
+            res.redirect('/')
+        })
+}
+
+exports.postOfferConsumer = (req, res, next) => {  //v9
+    Consumer
+        .findById(req.body.userId)
+        .then(consumer => {
+            return consumer.createOffer({
+                quantity: req.body.quantity
+            })
+        })
+        .then(() => {
+            res.redirect('/consumers-list')
+        })
 }
