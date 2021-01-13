@@ -45,6 +45,14 @@ class Consumer {
                         return Order.wrapUp(order);
                     });
     }
+    
+   createOffer(offer) { //v9
+        return this.#consumer
+                    .createOffer(offer)
+                    .then(offer => {
+                        return Offer.wrapUp(offer);
+                    });
+    }
 
     destroy() {
         return this.#consumer.destroy();
