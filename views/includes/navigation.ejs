@@ -23,6 +23,10 @@
         <a href="/sign-out" class="text-light m-2"style="text-decoration: none;" >Sign out </a>
         <a href="/cart" class="text-light m-2"style="text-decoration: none;" >Cart </a>
         <a href="/recommendations" class="text-light m-2"style="text-decoration: none;" >Recommendations </a> <!--v3-->
+        <% } else if (userType == 'admin') { %> <!--v9-->
+          <a href="/sign-out" class="text-light m-2"style="text-decoration: none;" >Sign out</a>
+          <a href="/sellers-list" class="text-light m-2"style="text-decoration: none;" >Sellers' list</a>
+          <a href="/consumers-list" class="text-light m-2"style="text-decoration: none;" >Consumers' list</a> 
         <% } else if (userType == 'seller') { %> <!--v7-->
           <a href="/sign-out" class="text-light m-2"style="text-decoration: none;" >Sign out </a>
           <!-- <!-- <a href="/cart" class="text-light m-2"style="text-decoration: none;" >Cart </a> -->
