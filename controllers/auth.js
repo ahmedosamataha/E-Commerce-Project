@@ -25,6 +25,11 @@ exports.findUser = (req, res, next) => {
             })
             .catch(err => console.log('findUser', err));
     } 
+    else if (id && type === 'admin') { //v9
+        req.user = {};
+        req.userType = 'admin';
+        next();
+    }
     else {
         req.user = null;
         req.userType = 'guest';
@@ -47,6 +52,18 @@ exports.getSignIn = (req, res, next) => {
     res.render('auth/SignInScreen', {   // v3
         userType: req.userType
     });
+};
+
+exports.postSignInAdmin = (req, res, next) => {    //v9
+    const email = req.body.email;
+    const password = req.body.password;
+    if (email === 'admin@admin.com' && password === 'admin') {
+        res.cookie('userId', 1);
+        res.cookie('userType', 'admin');
+        res.redirect('/');
+    }
+    else
+        next();
 };
 
 exports.postSignInSeller = (req, res, next) => {
@@ -94,7 +111,6 @@ exports.getSignUp = (req, res, next) => {  //v3
 };
 
 exports.postSignUpSeller = (req, res, next) => {  //v7
-    console.log(req.body.type);
     if (req.body.type !== 'seller') return next();
     if (req.body.password !== req.body.repassword) res.redirect('/sign-up');
     Seller
