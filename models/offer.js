@@ -45,8 +45,12 @@ class Offer {
                 });
     }
 
-    static findAll(searchProp) {
-        return OfferTable.findAll(searchProp);
+    static findAll(searchProp) {    //v9
+        return OfferTable
+                .findAll(searchProp)
+                .then(offers => {
+                    return Offer.wrapUp(offers);
+                })
     }
 
     static getDB() {
