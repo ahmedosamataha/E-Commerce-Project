@@ -50,29 +50,14 @@ describe('Consumer user', function () {
 
     const testProduct = {
         quantity: 11,
-        tag: 'testshop',
-        description: 'descriptionshop',
-        name: 'testProductshop',
-        imageUrl: 'urltestshop',
+        tag: 'testshopconsumer',
+        description: 'descriptionshopconsumer',
+        name: 'testProductshopconsumer',
+        imageUrl: 'urltestshopconsumer',
         price: 11.22
     }
     
     let req;
-    
-    // before(function (done) {
-    //     Consumer
-    //         .create(testConsumer)
-    //         .then(consumer => {
-    //             testConsumer.id = consumer.getId();
-    //             req = {
-    //                 cookies: {
-    //                     userId: testConsumer.id,
-    //                     userType: 'consumer'
-    //                 }
-    //             }
-    //             done();
-    //         })
-    // })
 
     it('should sign up testConsumer', function(done) {
         const req = {
@@ -144,7 +129,7 @@ describe('Consumer user', function () {
         })
     })
 
-    it('should return the tester profile', function(done) {
+    it('should return the consumer tester profile', function(done) {
         let res = {
             render: function(path, data) {
                 areEqual(data.user, testConsumer);
@@ -218,6 +203,45 @@ describe('Consumer user', function () {
         shopControllers.postPlaceOrder(req, res, next);
     })
 
+    it('should add tester review', function(done) { //v9
+        req.body = {
+            text: 'some dummy review text test',
+            rate: '4',
+            productId: testProduct.id
+        }
+        const res ={
+            redirect: function(path) {
+                Product
+                    .findById(testProduct.id)
+                    .then(product => {
+                        return product.getReviews();
+                    })
+                    .then(reviews => {
+                        expect(reviews[0].getText, req.body.text);
+                        done();
+                    })
+            }
+        }
+
+        shopControllers.postAddReview(req, res, () => {});
+    })
+
+    it('should search the products for a text of my own choice', function(done) {
+        req.body = {
+            keyword: testProduct.name
+        }
+
+        const res = {
+            render: function(path, data) {
+                areEqualProducts(data.products[0], testProduct);
+                expect(data.products.length).to.equal(1);
+                done();
+            }
+        }
+
+        shopControllers.postSearch(req, res, () => {});
+    })
+
     it('should find my recommendations', function(done) {
         const res = {
             render: function(path, data) {
@@ -240,7 +264,7 @@ describe('Consumer user', function () {
             })
     })
      
-    it('should delete the cookies', function() {
+    it('should sign out the test consumer', function() {
         let cookiesToBeDeleted = [];
         let res = {
             clearCookie: (str) => {
