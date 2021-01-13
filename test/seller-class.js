@@ -3,6 +3,7 @@ const sinon = require('sinon');
 
 const sequelize = require('../database/database');
 const Seller = require('../models/seller');
+const Product = require('../models/product');//
 const { should } = require('chai');
 
 function areEqual(seller, testSeller) {
@@ -98,6 +99,7 @@ describe('Seller', function () {
                 return seller.createProduct(testProduct)
             })
             .then(product => {
+                testProduct.id = product.getId();
                 areEqualProducts(product, testProduct);
                 done();
             })
@@ -124,6 +126,21 @@ describe('Seller', function () {
             })
             .then(sellers => {
                 expect(sellers).to.have.property('length', 0);
+                done();
+            })
+    })
+
+    it('should delete the test product', function(done) {
+        Product
+            .findById(testProduct.id)
+            .then(product => {
+                return product.destroy();
+            })
+            .then(() => {
+                return Product.findAll({where: {id: testProduct.id}});
+            })
+            .then(products => {
+                expect(products).to.have.property('length', 0);
                 done();
             })
     })
