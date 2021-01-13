@@ -36,4 +36,9 @@ router.get('/update-product/:productId', shopController.getUpdateProduct); //v7
 
 router.post('/add-review', shopController.postAddReview); //v8
 
+router.get('/sellers-list', shopController.getUsersList); //v9
+router.get('/consumers-list', shopController.getUsersList); //v9
+router.post('/delete-user', shopController.postDeleteUser); //v9
+router.post('/give-consumer-offer', shopController.postOfferConsumer); //v9
+
 module.exports = router;
