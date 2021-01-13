@@ -101,3 +101,18 @@ Amin behaviour simulation:
 3- admin can delete seller accounts: admin chooses the account --> the admin deleted the sellers account
 4- admin can delete consumer accounts: admin chooses the account --> the admin deleted the consumer account
 5- admin can delete products: admin chooses the product --> the admin deleted the product
+
+
+System testing:
+1- seller sign up: seller account info --> seller's account is created
+2- seller sign in: sellers credentials --> seller is signed in
+3- seller create a product: product's info --> seller created a product
+4- consumer sign up: consummer account info --> consummer's account is created
+5- consumer sign in: consumer credentials --> consumer is signed in
+6- consumer add the product to their cart: the product id --> the product is added to the consumer's cart
+7- admin sign in: admin's credentials --> admin is signed in
+8- admin adds an offer: admin's offer and consumer's id --> the offer is added to the consumer
+9- consumer purchase: consumer's currency and payment method and the order/gift's reciever email --> the consumer payed the 
+                                                                                                      products goes to the reciever (possibly the same consmer)
+10- consumer writes a review: review's text and rate --> the review is added
+11- consumer changes his account info: new info --> the info is modified
