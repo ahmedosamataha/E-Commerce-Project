@@ -134,6 +134,7 @@ exports.postSignUpConsumer = (req, res, next) => {  //v3
             password: req.body.password,
             email: req.body.email,
             shippingAddress: req.body.shippingAddress,
+            cash: 0
         })
         .then(consumer => {
             return consumer.createCart();

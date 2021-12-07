@@ -2,10 +2,12 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 const Consumer = require('../models/consumer'); //v5
 const Seller = require('../models/seller'); //v9
+const ConsumerData = require('../database/tables/consumer');
 
 const { Op } = require("sequelize"); //v6
 
 exports.getHome = (req, res, next) => {
+
     Product
         .findAll()
         .then(products => {
@@ -269,6 +271,7 @@ exports.postPlaceOrder = (req, res, next) => {  //v2 //v3
 exports.postCreateOrder = (req, res, next) => { // v3 called only if there is enough items in the stock
     const fetchedProducts = req.fetchedProducts;
     const fetchedCart = req.fetchedCart;
+
     const currencyFactor = {    //v4
         '$': 1,
         'LE': 16,
@@ -282,10 +285,22 @@ exports.postCreateOrder = (req, res, next) => { // v3 called only if there is en
             return order.addProducts(fetchedProducts, {through: {discount: 10}})
         })
         .then(() => {
-            for (let product of fetchedProducts) { //delete the bought items from the stock
-                product.setQuantity(product.getQuantity() - product.getCartItem().getQuantity());
+            const check = +Product.getCheck(fetchedProducts).toFixed(2);
+            const total = check*1 + 10;
+            if(total < Number(req.user.getCash())) {    
+                //const orderTotal = ((check+10) * (100-offer) / 100).toFixed(2);
+                const currentCash = req.user.getCash() - total;
+                req.user.setCash(currentCash);
+                req.user.save();
+                for (let product of fetchedProducts) { //delete the bought items from the stock
+                    product.setQuantity(product.getQuantity() - product.getCartItem().getQuantity());
+                }
+                return fetchedProducts.map(product => product.save())
             }
-            return fetchedProducts.map(product => product.save())
+            else {
+                res.redirect('/place-order');
+            }
+        
         })
         .then(() => {
             return fetchedCart.setProducts(null);
@@ -346,13 +361,14 @@ exports.getCreateProduct = (req, res, next) => {    //v7
 }
 
 exports.postCreateProduct = (req, res, next) => {    //v7
+    
     if (req.userType !== 'seller') {
         req.isAllowed = false;
         next();
     }
     if (req.body.id) {
         Product
-            .findById(req.body.id)
+            .findByPk(req.body.id)
             .then(product => {
                 product.setName(req.body.name);
                 product.setTag(req.body.tag);
@@ -362,11 +378,12 @@ exports.postCreateProduct = (req, res, next) => {    //v7
                 product.setPrice(req.body.price);
                 return product.save();
             })
-            .then(() => {
+            .then((result) => {
                 res.redirect('/');
             })
             .catch(err => console.log('postCreateProduct', err));
     } else {
+        
         req.user
             .createProduct({
                 name: req.body.name,
@@ -463,4 +480,43 @@ exports.postOfferConsumer = (req, res, next) => {  //v9
         .then(() => {
             res.redirect('/consumers-list')
         })
+}
+
+
+exports.postAddCash = (req, res, next) => {
+
+    const currentCash =  Number(req.user.getCash()) +  Number(req.body.cash);
+    
+    req.user.setCash(currentCash);
+    req.user.save();
+    res.redirect('/consumer-profile/' + req.user.getId());
+}
+
+exports.postTransferCash = (req,res,next) => {
+    const targetAcc = req.body.targetEmail;
+    let targetGlobal
+    let targetCurrentCash;
+    Consumer.findAll({where: {email: targetAcc}})
+        .then(target =>{
+            targetGlobal = target[0];
+            return target[0].getCash();
+        })
+        .then(result =>{
+            //targetCurrentCash = Number(result);
+            targetGlobal.setCash(Number(result) + Number(req.body.cashTransfer));
+            targetGlobal.save();
+            return req.user.getCash();
+        })
+        .then(result => {
+            req.user.setCash(Number(result) - Number(req.body.cashTransfer));
+            return req.user.save();
+        })
+        .then(()=>{
+            res.redirect('/consumer-profile/' + req.user.getId());
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    //req.body.setCash();
 }

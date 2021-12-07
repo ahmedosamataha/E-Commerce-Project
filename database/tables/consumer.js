@@ -26,7 +26,11 @@ const ConsumerTable = sequelize.define('consumer', {
         allowNull: false
     },
     gender: Sequelize.BOOLEAN,
-    lastVisited: Sequelize.STRING //v4
+    lastVisited: Sequelize.STRING, //v4
+    cash: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+    }
 });
 
 module.exports = ConsumerTable;

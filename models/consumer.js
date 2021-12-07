@@ -22,6 +22,7 @@ class Consumer {
     getGender() { return this.#consumer.gender; }
     getShippingAddress() { return this.#consumer.shippingAddress; } //v3
     getLastVisited() {return this.#consumer.lastVisited; } //v4
+    getCash() {return this.#consumer.cash; }
 
     setName(name) { this.#consumer.name = name; }
     setPassword(password) { this.#consumer.password = password; }
@@ -29,6 +30,7 @@ class Consumer {
     setGender(gender) { this.#consumer.gender = gender; }
     setShippingAddress(shippingAddress) { this.#consumer.shippingAddress = shippingAddress; }   //v3
     setLastVisited(lastVisited) {this.#consumer.lastVisited = lastVisited; } //v4
+    setCash(cash) {this.#consumer.cash = cash; }
 
     createCart() {
         return this.#consumer
@@ -122,7 +124,7 @@ class Consumer {
                 return consumer;
             });
     }
-
+    
     static findAll(searchProp) {
         return ConsumerTable
                 .findAll(searchProp)
@@ -130,6 +132,7 @@ class Consumer {
                     return Consumer.wrapUp(consumers);
                 });
     }
+
 }
 
 module.exports = Consumer;
