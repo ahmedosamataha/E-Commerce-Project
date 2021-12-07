@@ -3,35 +3,40 @@
     </div>
     <div class="col pl-0">
       <a class="navbar-brand text-light"  style="font-size:170%; font-weight:bold; line-height:70%; height:3rem">
-        <img src="https://github.com/ahmedosamataha/E-Commerce-Project/blob/master/views/logos/logo.PNG?raw=true" alt="logo" class="ml-2" style="object-fit:contain; height:3rem">
+        <img src="logo.PNG" alt="logo" class="ml-2" style="object-fit:contain; height:3rem">
         <span class="ml-2">Capital
-        <span style="background:-webkit-linear-gradient(#1AC29C, #207DA0); -Webkit-background-clip:text; -Webkit-text-fill-color:transparent">store</span>
+        <span style="background:-webkit-linear-gradient(#1AC29C, #207DA0); -Webkit-background-clip:text; -Webkit-text-fill-color:transparent">Store</span>
         </span>
         <% if (userType === 'consumer') { %> 
-          <a href="/consumer-profile/<%=user.getId()%>" class="text-light m-2"style="text-decoration: none;" >Welcome, <%= user.getName() %>! </a>
+          <a class="text-light m-2" style="text-decoration: none;" >Welcome, <%= user.getName() %></a>
         <% } else if (userType === 'seller') { %>  <!--v7-->
-          <a href="/seller-profile/<%=user.getId()%>" class="text-light m-2"style="text-decoration: none;" >Welcome, <%= user.getName() %>! </a>
+          <a class="text-light m-2" style="text-decoration: none;" >Welcome, <%= user.getName() %></a>
         <% } %>
       </a>
     </div>
     
     <div class="col d-flex flex-row-reverse">
       <% if (userType === 'guest') { %>
-        <a href="/sign-in" class="text-light m-2"style="text-decoration: none;" >Sign in</a>
-        <a href="/sign-up" class="text-light m-2"style="text-decoration: none;" >Sign up</a> <!--v3-->
+        <a href="/sign-in" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Sign in</a>
+        <a href="/sign-up" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Sign up</a> <!--v3-->
       <% } else if (userType == 'consumer') { %>
-        <a href="/sign-out" class="text-light m-2"style="text-decoration: none;" >Sign out </a>
-        <a href="/cart" class="text-light m-2"style="text-decoration: none;" >Cart </a>
-        <a href="/recommendations" class="text-light m-2"style="text-decoration: none;" >Recommendations </a> <!--v3-->
+        <a href="/sign-out" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Sign out </a>
+        <a href="/cart" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Cart </a>
+        <a href="/recommendations" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Recommendations </a> <!--v3-->
         <% } else if (userType == 'admin') { %> <!--v9-->
-          <a href="/sign-out" class="text-light m-2"style="text-decoration: none;" >Sign out</a>
-          <a href="/sellers-list" class="text-light m-2"style="text-decoration: none;" >Sellers' list</a>
-          <a href="/consumers-list" class="text-light m-2"style="text-decoration: none;" >Consumers' list</a> 
+          <a href="/sign-out" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Sign out</a>
+          <a href="/sellers-list" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Sellers' list</a>
+          <a href="/consumers-list" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Consumers' list</a> 
         <% } else if (userType == 'seller') { %> <!--v7-->
-          <a href="/sign-out" class="text-light m-2"style="text-decoration: none;" >Sign out </a>
+          <a href="/sign-out" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Sign out </a>
           <!-- <!-- <a href="/cart" class="text-light m-2"style="text-decoration: none;" >Cart </a> -->
-          <a href="/create-product" class="text-light m-2"style="text-decoration: none;" >Create product</a>
+          <a href="/create-product" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Create product</a>
       <% } %>
-      <a href="/" class="text-light m-2"style="text-decoration: none;" >Shop</a>
+      <a href="/" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Shop</a>
+      <% if (userType === 'consumer') { %> 
+        <a href="/consumer-profile/<%=user.getId()%>" class="text-light m-2"style="text-decoration: none; font-weight: bold" >Profile</a>
+      <% } else if (userType === 'seller') { %>  <!--v7-->
+        <a href="/seller-profile/<%=user.getId()%>" class="text-light m-2"style="text-decoration: none;  font-weight: bold" >Profile</a>
+      <% } %>
     </div>         
   </nav>

@@ -22,7 +22,7 @@
                     </li>
                     <li>
                         <label class="mt-4" >Price (in $)</label>
-                        <input value="<%=typeof product === 'undefined' ? '' : product.getPrice()%>" class="w-100 form-control" name="price" id="price" ></input>
+                        <input type="number" value="<%=typeof product === 'undefined' ? '' : product.getPrice()%>" class="w-100 form-control" name="price" id="price" ></input>
                     </li>
                     <li>
                         <label class="mt-4" >Image Url</label>
@@ -30,7 +30,7 @@
                     </li>
                     <li>
                         <label class="mt-4" >Count In Stock</label>
-                        <input value="<%=typeof product === 'undefined' ? '' : product.getQuantity()%>" class="w-100 form-control" name="quantity" id="quantity" ></input>
+                        <input type="number" value="<%=typeof product === 'undefined' ? '' : product.getQuantity()%>" class="w-100 form-control" name="quantity" id="quantity" ></input>
                     </li>
                     <li>
                         <label class="mt-4" >Tag</label>

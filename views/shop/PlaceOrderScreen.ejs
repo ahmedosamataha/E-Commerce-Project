@@ -78,7 +78,13 @@
 
                         <input type="hidden" value="<%=orderTotal%>" name="orderTotal">
                         <input type="hidden" value="<%=offer%>" name="offer">
-                        <button class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.4); font-weight:bold">Place Order</button>
+                        <% if(orderTotal > user.getCash()) { %>
+                             <button class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.4); font-weight:bold" disabled>Place Order</button>
+                             <label class="mt-4" for="email" style="color: red;">Your cash is not enough, you only have  <%=user.getCash()%>$</label>
+                        <% }%>
+                        <% if(orderTotal < user.getCash()) { %>
+                            <button class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.4); font-weight:bold" >Place Order</button>
+                        <% } %>
                     </div>
                 </form>
 

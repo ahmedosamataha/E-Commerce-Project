@@ -19,6 +19,8 @@ router.get('/consumer-profile/:consumerId', shopController.getProfile); // v2
 router.get('/seller-profile/:sellerId', shopController.getProfile); // v7
 
 router.post('/update-profile', shopController.postUpdateProfile); // v2
+router.post('/add-cash', shopController.postAddCash);
+router.post('/transfer-cash', shopController.postTransferCash)
 
 router.get('/place-order', shopController.getPlaceOrder); // v2
 

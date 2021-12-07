@@ -21,6 +21,8 @@ app.use(express.static(path.join(__dirname, 'views', 'logos')));  // Converting 
 app.use(authRoutes);
 app.use(shopRoutes);
 
+
+
 app.use((req, res, next) => {
     res.render('error/Error', {
         userType: req.userType,
@@ -31,7 +33,7 @@ app.use((req, res, next) => {
 
 sequelize
     .sync()
-    // .sync({force: true})
+    //.sync({force: true})
     .then(() => {
         app.listen(3000);
         console.log('Server started');
