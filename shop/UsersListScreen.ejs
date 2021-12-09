@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html>
+    <head>
+        <!-- <link rel="icon" href="logo.PNG" /> -->
+        <title>Capitalstore</title>
+    </head>
+    <body>
+    <header>
+        <%- include('../includes/navigation.ejs') %>
+    </header>
+
+
+
+
+
+
+    <main>
+        <div class="row m-0" style="padding:2% 0%">
+            <div class="row col col-11 col-sm-10 col-md-7 col-lg-8 ml-4 mt-3 m-2 " style="padding:0% 0%">
+                <div class="row">
+                    <div class="col-1" style="font-weight:bold ;">Users' ID</div> <!-- v3 -->
+                    <div class="col-2" style="font-weight:bold ;">Name</div>
+                    <div class="col-3"style="font-weight:bold ;">Email</div>
+                    <div class="col-3"style="font-weight:bold ;"></div>
+                    <% if(usersType === 'consumer') {%> <div class="col-2"style="font-weight:bold ;"></div> <%}%>
+                </div> 
+                <% for (let user of users) { %>
+                    <div class="row" style="margin: 1%;">
+                        <div class="col-1"><%=user.getId()%></div><!-- v3 -->
+                        <div class="col-2" ><%=user.getName()%></div>
+                        <div class="col-3" ><%=user.getEmail()%></div>
+                        <div class="col-2" >
+                            <form action="/delete-user" method="POST">
+                                <input type="hidden" name="userId" id="userId" value="<%=user.getId()%>">
+                                <input type="hidden" name="userType" id="userType" value="<%=usersType%>">
+                                <button type="submit"class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold">Delete</button>
+                            </form>
+                        </div>
+                        <% if(usersType === 'consumer') {%> 
+                            <div class="col-3" >
+                                <form action="/give-consumer-offer" method="POST">
+                                    <input type="hidden" name="userId" id="userId" value="<%=user.getId()%>">
+                                    <input class="w-100 form-control" name="quantity" id="quantity">
+                                    <button type="submit"class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold">give offer</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+            </main>
+             
+
+<footer class="fixed-bottom">
+    <nav class="navbar text-light position-absolute justify-content-center w-100" style="background-color: #000913; bottom: 0">
+      <span class ="mt-1">All rights reserved.</span>
+    </nav>
+</footer>
+</body>
+</html>
