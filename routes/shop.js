@@ -36,6 +36,8 @@ router.post('/sellerDeleteTheirProduct', shopController.postDeleteProduct); //v7
 
 router.get('/update-product/:productId', shopController.getUpdateProduct); //v7
 
+router.get('/generate-report/:userId', shopController.getReport);
+
 router.post('/add-review', shopController.postAddReview); //v8
 
 router.get('/sellers-list', shopController.getUsersList); //v9
