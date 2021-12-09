@@ -520,3 +520,31 @@ exports.postTransferCash = (req,res,next) => {
 
     //req.body.setCash();
 }
+
+exports.getReport = (req,res,next)=>{
+    if (req.userType === 'consumer') {
+        req.user
+            .getOrders({ include: ['products']})
+            .then(orders => {
+                res.render('shop/Report', {
+                    user: req.user,
+                    userType: req.userType,
+                    orders: orders
+                })
+            })
+            .catch(err => console.log('getProfile', err));
+    }
+    else if (req.userType === 'seller') {   //v7
+        req.user
+            .getProducts()
+            .then(products => {
+                res.render('shop/Report', {
+                    user: req.user,
+                    userType: req.userType,
+                    products: products
+                })
+            })
+            .catch(err => console.log('getProfile', err));
+    }
+
+}
