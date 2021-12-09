@@ -39,59 +39,16 @@
                 </ul>
             </form>
 
-            
-            <div class="row col col-11 col-sm-10 col-md-7 col-lg-8 ml-4 mt-3 m-2 " style="padding:0% 0%">
-                <% if(userType === 'consumer') { %>
-                <div style="font-weight:bold">Cash amount: <%= user.getCash() %></div>
-                <% }%>
-                <div style="font-weight:bold">Products</div>
-                <div class="row">
-                    <% if(userType === 'consumer') {%> <div class="col-1" style="font-weight:bold ;">Order ID</div><%}%> <!-- v7 -->
-                    <div class="col-1" style="font-weight:bold ;">Product ID</div> <!-- v3 -->
-                    <div class="col-1" style="font-weight:bold ;">Name</div>
-                    <div class="col-1"style="font-weight:bold ;">Price</div>
-                    <div class="col-1"style="font-weight:bold ;">Category</div>
-                    <div class="col-1"style="font-weight:bold ;">Quantity</div>
-                    <% if(userType === 'seller') {%> <div class="col-1" style="font-weight:bold ;"></div><%}%> <!-- v7 -->
-                </div> 
-                <% if (userType == 'consumer') { %>   <!--v7-->
-                    <% for(let order of orders) { %>
-                        <% for (let product of order.getProducts()) { %>
-                            <div class="row" style="margin: 1%;">
-                                <div class="col-1"><%=order.getId()%></div><!-- v3 -->
-                                <div class="col-1"><%=product.getId()%></div>
-                                <div class="col-1" ><%=product.getName()%></div>
-                                <div class="col-1">$<%=product.getPrice()%></div>
-                                <div class="col-1"><%=product.getTag()%></div>
-                                <div class="col-1"><%=product.getOrderItem().getQuantity()%></div>
-                            </div>
-                        <% } %>
-                    <% } %>
-                <% } else if (userType === 'seller') { %>   <!--v7-->
-                    <% for (let product of products) { %>
-                        <div class="row" style="margin: 1%;">
-                            <div class="col-1"><%=product.getId()%></div>
-                            <div class="col-1" ><%=product.getName()%></div>
-                            <div class="col-1">$<%=product.getPrice()%></div>
-                            <div class="col-1"><%=product.getTag()%></div>
-                            <div class="col-1"><%=product.getQuantity()%></div>
-                            <div class="col-1">
-                            <a href="/update-product/<%=product.getId()%>" class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold" >
-                                Edit
-                            </a>
-                            </div>
-                            <div class="col-1">
-                                <form action="/sellerDeleteTheirProduct" method="POST">
-                                    <input type="hidden" name="productId" id="productId" value="<%=product.getId()%>">
-                                    <button class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold;" type="submit">
-                                    
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    <% } %>
-                <% } %>
-            </div>
+            <% if (userType == 'seller') { %> 
+                <div style="font-weight:bold">
+                    <a href="/generate-report/<%=user.getId()%>" class="btn btn-warning w-50" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold" >
+                        View My Products Information
+                    </a>
+                </div>
+
+
+            <% }%>    
+
             <% if(userType === 'consumer') { %>
             <form method="POST" action="/add-cash" class="col col-11 col-sm-10 col-md-4 col-lg-3" style="margin:1% 0% 1% 2%; border:1px solid rgb(0,0,0,0.2); border-radius:10px">
                 <ul style="list-style-type:none; padding:8% 6%; font-weight:bold">
@@ -101,7 +58,7 @@
                         <input class="w-100 form-control"  name="cash" id="cash" type="number"></input>
                     </li>
                     <li>
-                        <label class="mt-4" for="email">Credit card number</label>
+                        <label class="mt-4" for="email">Credit Card Number</label>
                         <input class="w-100 form-control" type="number"  name="creditCardNumber" id="creditCardNumber"></input>
                     </li>
                     <li>
@@ -128,17 +85,10 @@
                         <input class="w-100 form-control" type="email"  name="targetEmail" id="targetEmail"></input>
                     </li>
                     <li>
-                        <label class="mt-4" for="email"></label>
-                        <label class="mt-4" for="email"></label>
-                        <label class="mt-4" for="email"></label>
-                        <label class="mt-4" for="email"></label>
-                        <label class="mt-4" for="email"></label>
-                        <label class="mt-4" for="email"></label>
-
-                        
-                        <!-- <input class="w-100 form-control" type="email"  name="targetEmail" id="targetEmail"></input>-->
+                        <label class="mt-4" for="password">Password</label>
+                        <input class="w-100 form-control" type="password" id="creditCardNumber" name="creditCardNumber"></input>
                     </li>
-                    <li class="mt-4">
+                        <li class="mt-4">
                         <button type="submit" class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold">
                             Transfer Cash
                         </button>
@@ -146,7 +96,14 @@
                    
                 </ul>
             </form>
+            <div style="font-weight:bold">
+                <a href="/generate-report/<%=user.getId()%>" class="btn btn-warning w-100" style="border:1px solid rgb(0,0,0,0.2); border-radius:7px; font-weight:bold" >
+                    Generate Report
+                </a>
+            </div>
             <% }%>
+
+            
         </div>
             </main>
              
